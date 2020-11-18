@@ -12,6 +12,7 @@ y <- base$train$y
 
 # Model definition ---------------------------------------------
 
+input <- layer_input()
 
 
 # Model fitting ------------------------------------------------
