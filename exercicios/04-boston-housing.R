@@ -18,9 +18,9 @@ str(y)
 input <- layer_input(shape = 13)
 
 output <- input %>% 
-   layer_dense(units = 15, activation = "softmax") %>% 
-   layer_dense(units = 15, activation = "softmax") %>% 
-   layer_dense(units = 15, activation = "softmax") %>% 
+   layer_dense(units = 15, activation = "relu") %>% 
+   # layer_dense(units = 14, activation = "relu") %>% 
+   # layer_dense(units = 13, activation = "relu") %>% 
    layer_dense(units = 1)
 
 model <- keras_model(inputs = input, outputs = output)
@@ -40,7 +40,7 @@ model %>%
       x = x,
       y = y,
       batch_size = 2,
-      epochs = 18
+      epochs = 20
    )
 
 get_weights(model)
