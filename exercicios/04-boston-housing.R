@@ -32,8 +32,8 @@ summary(y2)
 input <- layer_input(shape = 13)
 
 output <- input %>% 
-   layer_dense(units = 15, activation = "relu") %>% 
-   layer_dense(units = 8, activation = "relu") %>% 
+   layer_dense(units = 15, activation = "relu", use_bias = TRUE) %>% 
+   layer_dense(units = 8, activation = "relu", use_bias = TRUE) %>% 
    layer_dense(units = 1)
 
 model <- keras_model(inputs = input, outputs = output)
@@ -54,8 +54,8 @@ model %>%
    fit(
       x = x2,
       y = y2,
-      batch_size = 16,
-      epochs = 900,
+      batch_size = 64,
+      epochs = 350,
       validation_split = 0.25
    )
 
@@ -105,8 +105,8 @@ model %>%
    fit(
       x = x2,
       y = y2,
-      batch_size = 32,
-      epochs = 900,
+      batch_size = 128,
+      epochs = 350,
       validation_split = 0.25
    )
 
@@ -156,8 +156,8 @@ model %>%
    fit(
       x = x2,
       y = y2,
-      batch_size = 64,
-      epochs = 900,
+      batch_size = 256,
+      epochs = 350,
       validation_split = 0.25
    )
 
@@ -193,104 +193,3 @@ z %>%
    ) +
    ggplot2::geom_abline(slope = 1, intercept = 0, col = "red")
 
-# Round 4 - Model Specification -------------------------------------------
-
-model %>%
-   compile(
-      loss = loss_mean_squared_error,
-      optimizer = optimizer_sgd(lr = 0.0005)
-   )
-
-# Round 4 - Model Fitting -------------------------------------------------
-
-model %>%
-   fit(
-      x = x2,
-      y = y2,
-      batch_size = 128,
-      epochs = 900,
-      validation_split = 0.25
-   )
-
-# Round 4 - Quick Graphical Check -----------------------------------------
-
-get_weights(model)
-predict(model, x2)
-
-z <- dplyr::as_tibble(cbind(y2, predict(model, x2)))
-
-colnames(z) <- c("y", "y_hat")
-
-z %>%
-   ggplot2::ggplot(
-      ggplot2::aes(
-         x = y2,
-         y = y_hat
-      )
-   ) +
-   ggplot2::geom_point(size = 0.9) +
-   ggplot2::labs(
-      x = "Realized",
-      y = "Predicted",
-      title = "Predicted x Realized",
-      subtitle = "After Round 4",
-      caption = paste0(
-         "R-square: ",
-         scales::percent(
-            x = cor(predict(model, x2), y2)^2,
-            accuracy = 0.01),
-         sep = ""
-      )
-   ) +
-   ggplot2::geom_abline(slope = 1, intercept = 0, col = "red")
-
-# Round 5 - Model Specification -------------------------------------------
-
-model %>%
-   compile(
-      loss = loss_mean_squared_error,
-      optimizer = optimizer_sgd(lr = 0.0001)
-   )
-
-# Round 5 - Model Fitting -------------------------------------------------
-
-model %>%
-   fit(
-      x = x2,
-      y = y2,
-      batch_size = 256,
-      epochs = 900,
-      validation_split = 0.25
-   )
-
-# Round 5 - Quick Graphical Check -----------------------------------------
-
-get_weights(model)
-predict(model, x2)
-
-z <- dplyr::as_tibble(cbind(y2, predict(model, x2)))
-
-colnames(z) <- c("y", "y_hat")
-
-z %>%
-   ggplot2::ggplot(
-      ggplot2::aes(
-         x = y2,
-         y = y_hat
-      )
-   ) +
-   ggplot2::geom_point(size = 0.9) +
-   ggplot2::labs(
-      x = "Realized",
-      y = "Predicted",
-      title = "Predicted x Realized",
-      subtitle = "After Round 5",
-      caption = paste0(
-         "R-square: ",
-         scales::percent(
-            x = cor(predict(model, x2), y2)^2,
-            accuracy = 0.01),
-         sep = ""
-      )
-   ) +
-   ggplot2::geom_abline(slope = 1, intercept = 0, col = "red")

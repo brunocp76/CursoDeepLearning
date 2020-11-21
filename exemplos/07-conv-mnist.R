@@ -25,6 +25,8 @@ output <- input %>%
 
 model <- keras_model(input, output)
 
+summary(model)
+
 model %>% 
   compile(
     loss = "categorical_crossentropy",
