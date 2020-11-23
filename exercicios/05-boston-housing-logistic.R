@@ -33,6 +33,7 @@ summary(y2)
 input <- layer_input(shape = 13)
 
 output <- input %>%
+   layer_dense(units = 8, activation = "softmax", use_bias = TRUE) %>% 
    layer_dense(units = 1, activation = "sigmoid", use_bias = TRUE) %>% 
    layer_dense(units = 1)
 
