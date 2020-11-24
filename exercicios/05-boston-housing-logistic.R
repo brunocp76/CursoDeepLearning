@@ -16,7 +16,10 @@ y <- as.numeric(y > 25)
 # Dica do Milhão: Precisa escalar, principalmente os regressores... -------
 
 summary(x)
+summary(scale(x))
 summary(y)
+summary(scale(y))
+
 
 x2 <- scale(x)
 # y2 <- scale(y)
@@ -33,8 +36,7 @@ summary(y2)
 input <- layer_input(shape = 13)
 
 output <- input %>%
-   layer_dense(units = 8, activation = "softmax", use_bias = TRUE) %>% 
-   layer_dense(units = 1, activation = "sigmoid", use_bias = TRUE) %>% 
+   layer_dense(units = 4, activation = "sigmoid", use_bias = TRUE) %>%
    layer_dense(units = 1)
 
 model <- keras_model(inputs = input, outputs = output)
@@ -227,6 +229,7 @@ z %>%
       ),
       color = "red"
    )
+
 
 # Round 3 - Model Specification -------------------------------------------
 
