@@ -105,7 +105,7 @@ z %>%
       caption = paste0(
          "KS: ",
          scales::percent(
-            x = y0 - y1,
+            x = max(y0, y1) - min(y0, y1),
             accuracy = 0.01),
          sep = ""
       )
@@ -135,7 +135,6 @@ z %>%
       ),
       color = "red"
    )
-
 
 # Round 2 - Model Specification -------------------------------------------
 
@@ -199,7 +198,7 @@ z %>%
       caption = paste0(
          "KS: ",
          scales::percent(
-            x = y0 - y1,
+            x = max(y0, y1) - min(y0, y1),
             accuracy = 0.01),
          sep = ""
       )
@@ -229,7 +228,6 @@ z %>%
       ),
       color = "red"
    )
-
 
 # Round 3 - Model Specification -------------------------------------------
 
@@ -293,7 +291,7 @@ z %>%
       caption = paste0(
          "KS: ",
          scales::percent(
-            x = y0 - y1,
+            x = max(y0, y1) - min(y0, y1),
             accuracy = 0.01),
          sep = ""
       )
