@@ -36,7 +36,7 @@ summary(y2)
 input <- layer_input(shape = 13)
 
 output <- input %>%
-   layer_dense(units = 4, activation = "sigmoid", use_bias = TRUE) %>%
+   layer_dense(units = 3, activation = "sigmoid", use_bias = TRUE) %>%
    layer_dense(units = 1)
 
 model <- keras_model(inputs = input, outputs = output)
