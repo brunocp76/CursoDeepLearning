@@ -36,19 +36,22 @@ summary(y2)
 input <- layer_input(shape = 13)
 
 output <- input %>%
-   layer_dense(units = 3, activation = "sigmoid", use_bias = TRUE) %>%
-   layer_dense(units = 1)
+   layer_dense(units = 32, activation = "relu", use_bias = TRUE) %>%
+   layer_dense(units = 1, activation = "sigmoid", use_bias = TRUE)
 
 model <- keras_model(inputs = input, outputs = output)
 
 summary(model)
+
+auc <- tensorflow::tf$keras$metrics$AUC()
 
 # Round 1 - Model Specification -------------------------------------------
 
 model %>%
    compile(
       loss = loss_binary_crossentropy,
-      optimizer = optimizer_sgd(lr = 0.01)
+      optimizer = optimizer_sgd(lr = 0.01),
+      metrics = list("accuracy", auc)
    )
 
 # Round 1 - Model Fitting -------------------------------------------------
@@ -141,7 +144,8 @@ z %>%
 model %>%
    compile(
       loss = loss_binary_crossentropy,
-      optimizer = optimizer_sgd(lr = 0.005)
+      optimizer = optimizer_sgd(lr = 0.005),
+      metrics = list("accuracy", auc)
    )
 
 # Round 2 - Model Fitting -------------------------------------------------
@@ -234,7 +238,8 @@ z %>%
 model %>%
    compile(
       loss = loss_binary_crossentropy,
-      optimizer = optimizer_sgd(lr = 0.001)
+      optimizer = optimizer_sgd(lr = 0.001),
+      metrics = list("accuracy", auc)
    )
 
 # Round 3 - Model Fitting -------------------------------------------------
